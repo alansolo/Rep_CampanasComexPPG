@@ -1,0 +1,90 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="icon" type="image/png" href="~/Images/PPG_Layout.png" />
+
+    <title>PPG Comex</title>
+
+    @Styles.Render("~/Content/Campana/css")
+
+    @Scripts.Render("~/bundles/js")
+    @Scripts.Render("~/bundles/bootstrapJs")
+    @Scripts.Render("~/bundles/angularJs")
+    @Scripts.Render("~/bundles/loadersJs")
+    @Scripts.Render("~/bundles/jqueryUI")   
+
+    <link href="~/Content/menu.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.navbar-nav .nav-link').click(function () {
+                $('.navbar-nav .nav-link').removeClass('active');
+                $(this).addClass('active');
+            })
+        });
+    </script>
+
+</head>
+<body>
+    <div> 
+
+        @*ENCABEZADO*@
+        <div class="container mw-100">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-blue">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-nav">
+                        &nbsp;
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="container body-content mw-100">
+
+            @*CUERPO*@
+            <div class="contenido-cuerpo">
+                @RenderBody()
+            </div>
+
+            <hr />
+            @*PIE DE PAGINA*@
+            <footer>
+                <p class="text-center">@DateTime.Now.Year - &copy; PPG Comex</p>
+            </footer>
+        </div>
+
+        @*MODAL CARGAR*@
+        <div id="myModalLoader" class="modal fade modal-center" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <span class="modal-center-loading">Cargando...</span>
+                <main>
+                    <div class="loaders">
+                        <div class="loader">
+                            <div class="loader-inner ball-clip-rotate-multiple">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        @RenderSection("scripts", required: false)
+
+    </div>
+</body>
+</html>

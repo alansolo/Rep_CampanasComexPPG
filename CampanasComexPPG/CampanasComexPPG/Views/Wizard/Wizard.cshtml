@@ -1,0 +1,456 @@
+﻿
+@{
+    ViewBag.Title = "Wizard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2></h2>
+
+<head>
+
+    <link href="~/Content/Wizard/Wizard.css" rel="stylesheet" />
+
+    <script src="~/Scripts/Wizard/Wizard.js"></script>
+
+</head>
+
+<body>
+    <div ng-app="MyApp" ng-controller="MyController">
+
+        @*CONTENEDOR PRINCIPAL*@
+        <div id="Campana" class="container">
+            <div class="row justify-content-md-center">
+                <div id="divTabla" class="col-md-auto table-responsive">
+
+                    @*WIZARD*@
+                    <div id="smartwizard">
+                        <ul>
+                            @*WIZARD 1*@
+                            <li class="ancho-wizard-paso-1">
+                                <a href="#step-1">
+                                    <span class="texto-paso-wizard">
+                                        Datos
+                                        <br />
+                                    </span>
+                                    <i class="fa fa-check-circle check-icon"></i>
+                                    <br />
+                                    <small>
+                                        &nbsp;
+                                        Información
+                                        <br />
+                                        &nbsp;
+                                        de campaña
+                                    </small>
+                                </a>
+                            </li>
+                            @*WIZARD 2*@
+                            <li class="ancho-wizard-paso">
+                                <a href="#step-2">
+                                    <span class="texto-paso-wizard">
+                                        Campaña
+                                        <br />
+                                    </span>
+                                    <i class="fa fa-check-circle check-icon"></i>
+                                    <br />
+                                    <small>
+                                        &nbsp;
+                                        Seleccionar
+                                        <br />
+                                        &nbsp;
+                                        tipo de campaña
+                                    </small>
+                                </a>
+                            </li>
+                            @*WIZARD 3*@
+                            <li class="ancho-wizard-paso">
+                                <a href="#step-3">
+                                    <span class="texto-paso-wizard">
+                                        Part. Kroma
+                                        <br />
+                                    </span>
+                                    <i class="fa fa-check-circle check-icon"></i>
+                                    <br />
+                                    <small>
+                                        &nbsp;
+                                        Config. participacion
+                                        <br />
+                                        &nbsp;
+                                        kroma
+                                    </small>
+                                </a>
+                            </li>
+                            @*WIZARD 4*@
+                            <li class="ancho-wizard-paso">
+                                <a href="#step-4">
+                                    <span class="texto-paso-wizard">
+                                        Escenario
+                                        <br />
+                                    </span>
+                                    <i class="fa fa-check-circle check-icon"></i>
+                                    <br />
+                                    <small>
+                                        &nbsp;
+                                        Config. Diferentes
+                                        <br />
+                                        &nbsp;
+                                        escenarios
+                                    </small>
+                                </a>
+                            </li>
+                            @*WIZARD 5*@
+                            <li class="ancho-wizard-paso">
+                                <a href="#step-5">
+                                    <span class="texto-paso-wizard">
+                                        Publicidad
+                                        <br />
+                                    </span>
+                                    <i class="fa fa-check-circle check-icon"></i>
+                                    <br />
+                                    <small>
+                                        &nbsp;
+                                        Ingresar datos
+                                        <br />
+                                        &nbsp;
+                                        de publicidad
+                                    </small>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div>
+                            @*CONTENIDO WIZARD 1*@
+                            <div id="step-1" class="container">
+                                <div class="row justify-content-md-center">
+                                    <div id="divTablaStep1" class="col-md-auto table-responsive">
+                                        <br />
+                                        <table class="table table-sm table-small-font">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="10%"></td>
+                                                    <td width="90%">
+                                                        <form role="form" name="formulario" id="formulario" class="was-validated">
+
+                                                            @*CLAVE CAMPAÑA*@
+                                                            <div class="form-group row">
+                                                                <label for="claveCampana" class="col-sm-2 col-form-label">Clave campaña:</label>
+                                                                <div class="col-sm-4">
+                                                                    <input type="text" class="form-control text-uppercase" id="claveCampana" placeholder="Clave campaña" ng-disabled="true">
+                                                                </div>
+                                                            </div>
+
+                                                            @*NOMBRE CAMPAÑA*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="campana">Nombre campaña:</label>
+                                                                <div class="col-sm-4">
+                                                                    <input type="text" class="form-control text-uppercase" id="campana" ng-model="dos" placeholder="Tipo campaña" required>
+                                                                </div>
+                                                            </div>
+
+                                                            @*FECHA DOCUMENTO*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="fecha">Fecha documento:</label>
+                                                                <div class="col-sm-4">
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control fecha" id="fechaDocumento" name="fecha"
+                                                                               placeholder="DD/MM/YYYY"
+                                                                               required readonly />
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">
+                                                                                <i class="fa fa-calendar fa-lg"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            @*NEGOCIO LIDER*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="negocioLider">Negocio lider:</label>
+                                                                <div class="col-sm-4">
+                                                                    <select class="form-control" id="negocioLider" required>
+                                                                        <option value="">-- SELECCIONE --</option>
+                                                                        <option value="1">1</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            @*LIDER CAMPAÑA*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="liderCampana">Lider Campaña:</label>
+                                                                <div class="col-sm-4">
+                                                                    <input type="text" class="form-control text-uppercase" id="liderCampana" placeholder="Lider de campaña" required readonly>
+                                                                </div>
+                                                            </div>
+
+                                                            @*SUBCANAL*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="subcanal">Subcanal:</label>
+                                                                <div class="col-sm-4">
+                                                                    <select class="form-control" id="subcanal" required>
+                                                                        <option value="">-- SELECCIONE --</option>
+                                                                        <option value="1">1</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            @*MONEDA*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="moneda">Moneda:</label>
+                                                                <div class="col-sm-4">
+                                                                    <select class="form-control" id="moneda" required>
+                                                                        <option value="">-- SELECCIONE --</option>
+                                                                        <option value="1">1</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            @*TIPO DE CAMBIO*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="tipoCambio">Tipo cambio:</label>
+                                                                <div class="col-sm-4">
+                                                                    <input type="text" class="form-control text-uppercase" id="tipoCambio" placeholder="Tipo de cambio" ng-model="uno" required valid-decimal step="0.01">
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            @*CONTENIDO WIZARD 2*@
+                            <div id="step-2" class="container">
+                                <div class="row justify-content-md-center">
+                                    <div id="divTablaStep2" class="col-md-auto table-responsive">
+                                        <br />
+                                        <table class="table table-sm table-small-font">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="10%"></td>
+                                                    <td width="90%">
+                                                        <form role="form" name="formulario" id="formulario" class="was-validated">
+                                                            @*EXPRESS*@
+                                                            <div class="form-group row">
+                                                                <label for="express" class="col-sm-2 col-form-label">Express:</label>
+                                                                <div class="col-sm-4">
+                                                                    <input type="checkbox" class="form-check-input check-ancho" id="express" required>
+                                                                </div>
+                                                            </div>
+                                                            @*TIPO CAMPAÑA*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="tipoCampana">Tipo Venta:</label>
+                                                                <div class="col-sm-4">
+                                                                    <select class="form-control" id="tipoCampana" required>
+                                                                        <option value="">-- SELECCIONE --</option>
+                                                                        <option value="1">1</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            @*MECANICA*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="mecanica">Mecanica:</label>
+                                                                <div class="col-sm-4">
+                                                                    <select class="form-control" id="mecanica" required>
+                                                                        <option value="">-- SELECCIONE --</option>
+                                                                        <option value="1">1</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            @*JUSTIFICACION NOTA CREDITO*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="justificacionNC">Justificación NC:</label>
+                                                                <div class="col-sm-4">
+                                                                    <textarea class="form-control text-area" id="justificacionNC" required></textarea>
+                                                                </div>
+                                                            </div>
+
+                                                            @*OBJETIVO NOTA CREDITO*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="justificaNC">Objetivo NC:</label>
+                                                                <div class="col-sm-4">
+                                                                    <textarea class="form-control text-area" id="objetivoNC" required></textarea>
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            @*CONTENIDO WIZARD 3*@
+                            <div id="step-3" class="container">
+                                <div class="row justify-content-md-center">
+                                    <div id="divTablaStep3" class="col-md-auto table-responsive">
+                                        <br />
+                                        <table class="table table-sm table-small-font">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="10%"></td>
+                                                    <td width="90%">
+                                                        <form role="form" name="formulario" id="formulario" class="was-validated">
+                                                            @*PARTICIPACION KROMA*@
+                                                            <div class="form-group row">
+                                                                <label for="express" class="col-sm-2 col-form-label">Sobreprecio:</label>
+                                                                <div class="col-sm-10">
+                                                                    <div class="row justify-content-md-center">
+                                                                        <div id="divTabla" class="col-md-auto table-responsive">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            @*JUSTIFICACION KROMA*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="justificacionKroma">Justificación Kroma:</label>
+                                                                <div class="col-sm-4">
+                                                                    <textarea class="form-control text-area" id="justificacionKroma" required></textarea>
+                                                                </div>
+                                                            </div>
+
+                                                            @*ALCANCE*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="alcance">Alcance:</label>
+                                                                <div class="col-sm-4">
+                                                                    <select class="form-control" id="alcance" required>
+                                                                        <option value="">-- SELECCIONE --</option>
+                                                                        <option value="1">1</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            @*CLIENTES OTROS*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="clientesOtros">Clientes otros:</label>
+                                                                <div class="col-sm-4">
+                                                                    <select class="form-control" id="clientesOtros" required>
+                                                                        <option value="">-- SELECCIONE --</option>
+                                                                        <option value="1">1</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            @*CONTENIDO WIZARD 4*@
+                            <div id="step-4" class="container">
+                                <div class="row justify-content-md-center">
+                                    <div id="divTablaStep4" class="col-md-auto table-responsive">
+                                        <br />
+                                        <table class="table table-sm table-small-font">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="10%"></td>
+                                                    <td width="90%">
+                                                        <form role="form" name="formulario" id="formulario" class="was-validated">
+                                                            
+                                                            @*MECANICA*@
+                                                            <div class="form-group row">
+                                                                <label for="express" class="col-sm-2 col-form-label">Productos:</label>
+                                                                <div class="col-sm-10">
+                                                                    <div class="row justify-content-md-center">
+                                                                        <div id="divTabla" class="col-md-auto table-responsive">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            @*EXCEPCIONES*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="excepciones">Excepciones:</label>
+                                                                <div class="col-sm-4">
+                                                                    <textarea class="form-control text-area" id="excepciones" required></textarea>
+                                                                </div>
+                                                            </div>
+
+                                                            @*CARGA ESCENARIO*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="archivoEscenario">Archivo escenario:</label>
+                                                                <div class="col-sm-8 input-group-append">
+                                                                    <input type="text" class="form-control height-input-file" ng-model="file.name" value="{{file.name}}" placeholder="Seleccionar archivo..." required readonly>
+                                                                    <label class="btn-group height-input-file">
+                                                                        <span class="btn btn-primary">
+                                                                            <i class="fa fa-folder-open fa-lg" aria-hidden="true"></i>
+                                                                            Examinar&hellip;
+                                                                            <input type="file" id="myFile" style="display:none;" onchange="angular.element(this).scope().SeleccionarArchivoActividades(this)" ng-model="file"
+                                                                                   accept=".mppx, .mpp, application/vnd.ms-project">
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            @*CARGA CRONOGRAMA*@
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label" for="archivoCronograma">Archivo cronograma:</label>
+                                                                <div class="col-sm-8 input-group-append">
+                                                                    <input type="text" class="form-control height-input-file" ng-model="file.name" value="{{file.name}}" placeholder="Seleccionar archivo..." required readonly>
+                                                                    <label class="btn-group height-input-file">
+                                                                        <span class="btn btn-primary">
+                                                                            <i class="fa fa-folder-open fa-lg" aria-hidden="true"></i>
+                                                                            Examinar&hellip;
+                                                                            <input type="file" id="myFile" style="display:none;" onchange="angular.element(this).scope().SeleccionarArchivoActividades(this)" ng-model="file"
+                                                                                   accept=".mppx, .mpp, application/vnd.ms-project">
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            @*CONTENIDO WIZARD 5*@
+                            <div id="step-5" class="container">
+                                <div class="row justify-content-md-center">
+                                    <div id="divTablaStep4" class="col-md-auto table-responsive">
+                                        <br />
+                                        <table class="table table-sm table-small-font">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="10%"></td>
+                                                    <td width="90%">
+                                                        <form role="form" name="formulario" id="formulario" class="was-validated">
+                                                            @*PUBLICIDAD*@
+                                                            <div class="form-group row">
+                                                                <label for="express" class="col-sm-2 col-form-label">Publicidad:</label>
+                                                                <div class="col-sm-10">
+                                                                    <div class="row justify-content-md-center">
+                                                                        <div id="divTabla" class="col-md-auto table-responsive">
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+
+

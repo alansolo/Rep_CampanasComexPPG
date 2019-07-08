@@ -1,0 +1,56 @@
+﻿.leftMenu, .rightBody {
+        float:left;
+        height:100vh;
+        width:100vh;
+    }
+    
+.leftMenu {
+        background: #0078A9;
+        display: inline-block;
+        white-space: nowrap;
+        width: 50px;
+        transition: width 1s ;
+        border-spacing: 0;
+        box-sizing: border-box;
+        margin-top: -9px;
+        margin-left: -15px;
+        z-index:99;
+        position: absolute;
+    }
+
+.rightBody {
+        background: #fff;
+        width: 95.6%;
+        transition: width 1s;
+    }    
+
+.leftMenu:hover {
+        width: 150px;
+    }    
+    .leftMenu:hover + .rightBody {
+        width: 81%;
+    }
+.item:hover {
+        background-color:#ccc;
+        }
+        
+.leftMenu .glyphicon {
+        margin:15px;
+        width:20px;
+        color:#fff;
+    }
+    
+span.glyphicon.glyphicon-refresh{
+    font-size:17px;
+    vertical-align: middle !important;
+    }
+    
+.item {
+        height:50px;
+        overflow:hidden;
+        color:#fff;
+        border-bottom: 1px solid white;
+    }
+    .item:first-child {        
+        border-top: 1px solid white;
+    }

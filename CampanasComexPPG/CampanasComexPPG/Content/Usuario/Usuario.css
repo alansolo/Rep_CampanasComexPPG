@@ -1,0 +1,78 @@
+﻿body {
+}
+
+.container{
+    max-width: 100%;
+}
+
+.btn {
+    height: 34px !important;
+}
+
+.form-control {
+    height: 34px !important;
+}
+
+div > h5 > [aria-expanded="true"] .fa:before {
+    content: "\f068";
+}
+
+div > h5 > [aria-expanded="false"] .fa:before {
+    content: "\f067";
+}
+
+.width-control {
+    width: 114px !important;
+}
+
+.btn-primary {
+    border-color: #3d9fff;
+    background-color: #3d9fff;
+}
+
+.fa-warning {
+    font-size: xx-large !important;
+}
+
+.radio-usuario {
+    text-align: center;
+    height: 15px;
+    width: 15px;
+}
+
+.table-responsive {
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.modal-body-max {
+    height: 500px;
+    /*overflow: auto;*/
+    /*overflow-x: auto;*/
+    overflow-y: auto;
+    white-space: nowrap;
+}
+
+.modal-body-max > .table {
+    display: inline-block;
+    float: none;
+}
+
+.tabla-height {
+    height: 100%;
+}
+
+.modal-heigth-edit{
+    height: 420px;
+    overflow-y: auto;
+}
+.modal-heigth-add {
+    height: 600px;
+    overflow-y: auto;
+}
+
+.uitooltip {
+    /*background: #A9CCE3;*/
+    background: #D5D8DC;
+}

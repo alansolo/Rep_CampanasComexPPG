@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "Configuracion";
+    Layout = "~/Views/Shared/_LayoutCampana.cshtml";
+}
+
+<h2></h2>
+
+<head>
+    <link href="~/Content/Configuracion/Configuracion.css" rel="stylesheet" />
+    <script src="~/Scripts/Configuracion/Configuracion.js"></script>
+</head>
+
+<body>
+    <div ng-app="MyApp" ng-controller="MyController">
+
+        @*USUARIO Y PASSWORD SHARE POINT*@
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingSearchCampania">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseUsuarioPasswordSharePoint" aria-expanded="false" aria-controls="collapseUsuarioPasswordSharePoint">
+                            <i class="fa"></i>
+                            Usuario Password SharePoint
+                        </button>
+                        <i class="fa fa-key fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseUsuarioPasswordSharePoint" class="collapse" aria-labelledby="headingSearchCampania" data-parent="#accordion">
+                    <div class="card-body">
+
+                        @*Campos busqueda campaña*@
+                        <div id="BuscarCampana" class="container">
+                            <div class="row justify-content-md-center">
+                                <div class="col-lg-auto">
+
+                                    <form role="form" name="formulario" id="formulario" class="form-password">
+
+                                        @*Usuario*@
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="claveCampania">Usuario Share Point:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <input type="text" class="form-control text-uppercase" id="usuarioSharePoint" placeholder="Usuario Share Point" name="claveCampania"
+                                                       ng-model="UsuarioSharePoint" required>
+                                            </div>
+                                        </div>
+
+                                        @*Password*@
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="campania">Password Share Point:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <input type="password" class="form-control" id="passwordSharePoint" placeholder="Password Share Point" name="campania"
+                                                       ng-model="PasswordSharePoint" required>
+                                            </div>
+                                        </div>
+
+                                        @*ConfirmarPassword*@
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="campania">Confirmar Password:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <input type="password" class="form-control" id="confirmPasswordSharePoint" placeholder="Confirmar Password" name="campania"
+                                                       ng-model="ConfirmPasswordSharePoint" required>
+                                            </div>
+
+                                            <div class="alert alert-danger text-center row" ng-show="ValidarPasswordShareP(PasswordSharePoint, ConfirmPasswordSharePoint)" role="alert">
+                                                <i class="fa fa-key"></i>
+                                                &nbsp;&nbsp;
+                                                Los campos de contraseñas deben coincidir.
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        @*EDITAR USUARIO PASSWORD SHARE POINT*@
+                        <div class="input-group row justify-content-md-center">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditUsuarioPassword" 
+                                        title="Editar Usuario Share Point."
+                                        ng-disabled="ValidarEditUsuarioPasswordShareP(UsuarioSharePoint, PasswordSharePoint, ConfirmPasswordSharePoint)">
+                                    <i class="fa fa-edit fa-lg" aria-hidden="true"></i> Editar
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        @*MODAL ALERTA EDITAR USUARIO Y PASSWORD*@
+        <div class="modal fade" id="myModalEditUsuarioPassword" tabindex="-1" role="document" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    @*Encabezado Modal*@
+                    <div class="modal-header">
+                        <div class="navbar-header navbar-header-modal row">
+                            <img src="~/Images/PPG_Layout.png" class="img-rounded img-modal-ppg" alt="Cinque Terre">
+                            <img src="~/Images/comex_layout_2.png" class="img-rounded img-modal-comex" alt="Cinque Terre">
+                            <h5 id="modalTitle" class="modal-title">Editar Usuario y Password SharePoint</h5>
+                        </div>
+
+                        <button type="button" class="close d-none" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    @*Cuerpo Modal*@
+                    <div class="modal-body">
+                        @*Formulario*@
+                        <form class="form-horizontal">
+                            <input type="hidden" id="id_indicador" />
+
+                            <div class="div-centrar alert alert-warning form-group input-group">
+                                <i class="fa fa-exclamation-triangle fa-warning" aria-hidden="true" style="width:100px"></i>
+                                <h5 class="input-group-append">¿Esta seguro que desea editar el usuario y password de SharePoint?</h5>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    @*Pie Modal*@
+                    <div class="modal-footer div-centrar">
+
+                        <div id="divSave">
+                            <div class="form-group row">
+                                <div class="col-md-6 div-centrar">
+                                    <button id="saveModal" type="button" class="btn btn-primary" data-dismiss="modal" 
+                                            ng-click="EditUsuarioPasswordShareP(UsuarioSharePoint, PasswordSharePoint)">
+                                        <i class="fa fa-save fa-lg" aria-hidden="true"></i> Editar
+                                    </button>
+                                </div>
+                                <div class="col-md-6 div-centrar">
+                                    <button id="cancelarModal" type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="">
+                                        <i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i> Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</body>

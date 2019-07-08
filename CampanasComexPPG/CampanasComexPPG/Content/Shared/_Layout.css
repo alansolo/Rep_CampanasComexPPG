@@ -1,0 +1,15 @@
+﻿body {
+}
+
+.table>thead
+{
+    background-color:black;
+    color:white;
+}
+
+.btn-primary
+{
+    border-top-left-radius: 0.25rem !important;
+    border-bottom-left-radius: 0.25rem !important;
+    background-color: #0078A9;
+}

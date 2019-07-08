@@ -1,0 +1,33 @@
+﻿body {
+}
+
+.container{
+    /*max-width:100%;*/
+}
+
+div > h5 > [aria-expanded="true"] .fa:before {
+    content: "\f068";
+}
+
+div > h5 > [aria-expanded="false"] .fa:before {
+    content: "\f067";
+}
+
+g > text {
+    font-weight:bold;
+    font-size:small;
+}
+
+/*g > text[text-anchor="end"]
+{
+    width:10px !important;
+}*/
+
+.uitooltip {
+    /*background: #A9CCE3;*/
+    background: #D5D8DC;
+}
+
+.table-responsive {
+    height: auto;
+}

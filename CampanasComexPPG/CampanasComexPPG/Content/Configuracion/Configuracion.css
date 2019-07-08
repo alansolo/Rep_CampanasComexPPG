@@ -1,0 +1,45 @@
+﻿body {
+}
+
+div > h5 > [aria-expanded="true"] .fa:before {
+    content: "\f068";
+}
+
+div > h5 > [aria-expanded="false"] .fa:before {
+    content: "\f067";
+}
+
+.form-control {
+    height: 34px !important;
+}
+
+.width-control {
+    width: 170px !important;
+}
+
+.form-password {
+    width: 412px !important;
+}
+
+.form-control {
+    height: 34px !important;
+}
+
+.width-control {
+    width: 114px !important;
+}
+
+/*.img-modal-comex {
+    height: 34px;
+    width: 60px;
+    margin-top: -6px;
+}*/
+
+.modal-title {
+    width: 465px;
+}
+
+.uitooltip {
+    /*background: #A9CCE3;*/
+    background: #D5D8DC;
+}

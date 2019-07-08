@@ -1,0 +1,47 @@
+﻿body {
+}
+
+.carousel-indicators .active {
+    background-color: dodgerblue;
+}
+
+.carousel-indicators li {
+    background-color: black;
+    margin-top: 3px;
+}
+
+.carousel {
+    position: absolute;
+    width: 100%;
+    padding-left: 37px;
+    margin-top: -9px;
+    margin-left: -28px !important;
+}
+
+.carousel-inner {
+    height: 100vh;
+}
+
+.carousel-control-prev-icon {
+    background-color: black;
+}
+
+.carousel-control-next-icon {
+    background-color: black;
+}
+
+.carousel-indicators {
+    background-color: darkgray;
+    height: 10px;
+    width: 20%;
+    margin-left: 40%
+}
+
+.img {
+    height: 630px !important;
+}
+
+.uitooltip {
+    /*background: #A9CCE3;*/
+    background: #D5D8DC;
+}

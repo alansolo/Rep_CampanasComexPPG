@@ -1,0 +1,277 @@
+﻿body {
+}
+
+div > h5 > [aria-expanded="true"] .fa:before {
+    content: "\f068";
+}
+
+div > h5 > [aria-expanded="false"] .fa:before {
+    content: "\f067";
+}
+    
+/*div >h5>[data-toggle="collapse"].collapsed .fa:after {
+  content: "\f067";
+}*/
+
+.text-file {
+    width: 700px;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Examinar...";
+}
+
+.form-control {
+    height: 34px !important;
+}
+
+.width-control{
+    width: 114px !important;
+}
+
+.btn-primary {
+    border-color: #3d9fff;
+    background-color: #3d9fff;
+}
+
+.nav-tabs .nav-link {
+    border-color: #fff #fff #dee2e6;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link .nav-color-black {
+    color: white !important;
+    background-color: #4da6ff !important;
+}
+
+.nav-tabs .nav-link {
+    color: #007bff !important;
+}
+
+.nav-item:hover {
+    color:white !important;
+}
+
+.width-control-idTarea {
+    width:6%;
+}
+
+.width-control-estatus {
+    width: 10%;
+}
+
+.modal-lg-max{
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+.modal-dialog-max {
+    overflow: initial !important;
+    /*overflow-x: initial !important;*/
+}
+
+.modal-body-max {
+    height: 376px;
+    overflow: auto;
+    /*overflow-x: auto;*/
+    white-space: nowrap;
+}
+
+.modal-body-max > .table {
+    display: inline-block;
+    float: none;
+}
+
+.tabla-height
+{
+    height:300px !important;
+}
+
+.radio-usuario {
+    text-align: center;
+    height: 15px;
+    width: 15px;
+}
+
+.tab-color {
+    background-color: #dee2e6;
+}
+
+.img-modal-ppg {
+    height: 34px;
+    width: 38px;
+}
+
+.fecha-heigth {
+    width: 150px !important;
+}
+
+.nombre-heigth{
+    width: 310px !important;
+}
+
+.correo-heigth {
+    width: 220px !important;
+}
+
+.container{
+    max-width:100%;
+}
+
+/*SEMAFORO*/
+.container-sema {
+    width: 166px;
+    height: 62px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3px;
+    border-radius: 10%;
+    border-width: 6px !important;
+    margin-top: -6px;
+    background: #e9ecef;
+    border-color: #D3D3D3 !important;
+}
+
+.light_1 {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    opacity: 0.15;
+    padding: 10px;
+    border: 2px solid white;
+    margin: auto;
+    margin-right: initial;
+    margin-top: -4px;
+}
+
+.light_2 {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    opacity: 0.15;
+    padding: 10px;
+    border: 2px solid white;
+    margin: auto;
+    margin-top: -51px;
+}
+
+.light_3 {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    opacity: 0.15;
+    padding: 10px;
+    border: 2px solid white;
+    margin: auto;
+    margin-left: initial;
+    margin-top: -49px;
+}
+
+.light-visible {
+    opacity: 1;
+}
+
+.red {
+    background-color: red;
+}
+
+.yellow {
+    background-color: #f4f425;
+}
+
+.green {
+    background-color: #27e833;
+}
+
+.blue {
+    background-color: skyblue;
+}
+
+.header-color{
+    color: #0078A9 !important;
+}
+
+.light-activity {
+    border-radius: 50%;
+    width: 40px;
+    height: 30px;
+    border: 2px solid white;
+    margin-top: 2px;
+    margin-left: 6px;
+}
+
+td {
+    height: 20px !important;
+}
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
+    background: lightgray !important;
+}
+
+.datepicker .datepicker-switch, .datepicker .prev, .datepicker .next, .datepicker tfoot tr th {
+    background-color: #0078A9 !important;
+    color: whitesmoke !important;
+}
+
+.text-padre{
+    font-weight:bold;
+}
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.fecha-readonly {
+    background-color: white !important;
+}
+
+.form-control:disabled {
+    background-color: #e9ecef !important;
+}
+
+.table-responsive {
+    height: auto;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.fondo-disable {
+    background-color: #e9ecef;
+}
+
+.texto-warning{
+    font-weight:900;
+}
+
+.texto-danger{
+    font-weight:900;
+}
+
+.row-no-incluir {
+    background-color: #bccad6 !important;
+}
+
+/*#myModalDetalleCampana {
+    z-index: 1100 !important;
+}
+
+#myModalLoader {
+    z-index: 1040 !important;
+}*/
+
+.uitooltip {
+    /*background: #A9CCE3;*/
+    background: #D5D8DC;
+}
+
+.porcentajeGeneral{
+    width:100px;
+}
+
+.btnHeightDefault
+{
+    height: 38px;
+}

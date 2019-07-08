@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8C625F1F-8256-463C-8046-DF4503DAA2DC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EntidadesCampanasPPG</RootNamespace>
+    <AssemblyName>EntidadesCampanasPPG</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BDCampana\Campana.cs" />
+    <Compile Include="BDCampana\Cronograma.cs" />
+    <Compile Include="BDCampana\MecanicaCombo.cs" />
+    <Compile Include="BDCampana\MecanicaDescuento.cs" />
+    <Compile Include="BDCampana\MecanicaKit.cs" />
+    <Compile Include="BDCampana\MecanicaMultiplo.cs" />
+    <Compile Include="BDCampana\MecanicaRegalo.cs" />
+    <Compile Include="BDCampana\MecanicaTiendas.cs" />
+    <Compile Include="BDCampana\MecanicaVolumen.cs" />
+    <Compile Include="BDCampana\Parametro.cs" />
+    <Compile Include="BDCampana\TipoAlcance.cs" />
+    <Compile Include="BDCampana\TipoCampania.cs" />
+    <Compile Include="BDCampana\TipoSell.cs" />
+    <Compile Include="BDCampana\RolCronograma.cs" />
+    <Compile Include="BDCampana\T_CAM_ACTIVIDAD.cs" />
+    <Compile Include="BDCampana\Usuario.cs" />
+    <Compile Include="BDCampana\UsuarioLdap.cs" />
+    <Compile Include="BD\SqlParameterGroup.cs" />
+    <Compile Include="Campana\CampanaMecanicaENT.cs" />
+    <Compile Include="Campana\MecanicaENT.cs" />
+    <Compile Include="Campana\CampanaENT.cs" />
+    <Compile Include="Campana\CronogramaENT.cs" />
+    <Compile Include="Catalogo\ParametroENT.cs" />
+    <Compile Include="Catalogo\TipoSellENT.cs" />
+    <Compile Include="Catalogo\TipoAlcanceENT.cs" />
+    <Compile Include="Catalogo\TipoCampaniaENT.cs" />
+    <Compile Include="Catalogo\RolCronogramaENT.cs" />
+    <Compile Include="BDCampana\TipoUrgente.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Configuracion\ConfiguracionENT.cs" />
+    <Compile Include="Ldap\LdapENT.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuario\UsuarioENT.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BDCampana\DirectorioActivo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

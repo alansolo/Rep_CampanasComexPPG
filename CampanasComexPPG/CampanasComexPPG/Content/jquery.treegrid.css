@@ -1,0 +1,77 @@
+.treegrid-indent {
+    width: 10px;
+    height: 16px;
+    display: inline-block;
+    position: relative;
+}
+
+.treegrid-expander { 
+        width:10px;
+        height: 16px; 
+        display: inline-block; 
+        position: relative; 
+        /*cursor: pointer;*/
+}
+
+.treegrid-expander-expanded {
+    width: 10px;
+    height: 16px;
+    display: inline-block;
+    position: relative;
+}
+
+.treegrid-expander-expanded {
+    /*display: inline-block;*/
+    /*font: normal normal normal 14px/1 FontAwesome;*/
+    /*font-size: inherit;*/
+    /*text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    font-size: 1.15em;
+    line-height: 0.75em;
+    vertical-align: -15%;*/
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    color: #0078A9;
+}
+
+.treegrid-expander-expanded:before {
+    content: "\f068     ";
+    margin-left: -5px;
+    color: #0078A9;
+}
+
+.treegrid-expander-collapsed {
+    /*display: inline-block;*/
+    /*font: normal normal normal 14px/1 FontAwesome;*/
+    /*font-size: inherit;*/
+    /*text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    font-size: 1.15em;
+    line-height: 0.75em;
+    vertical-align: -15%;*/
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    color: #0078A9;
+}
+
+.treegrid-expander-collapsed:before {
+    content: "\f067     ";
+    margin-left: -5px;
+    color: #0078A9;
+}

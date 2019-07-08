@@ -1,0 +1,396 @@
+﻿
+@{
+    ViewBag.Title = "Usuario";
+    Layout = "~/Views/Shared/_LayoutCampana.cshtml";
+}
+
+<h2></h2>
+
+<head>
+    <link href="~/Content/Usuario/Usuario.css" rel="stylesheet" />
+    <script src="~/Scripts/Usuario/Usuario.js"></script>
+
+    @*<script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+
+                $('#tableUsuario').DataTable({
+                    scrollY: 300,
+                    scrollX: true,
+                    scrollCollapse: true,
+                    paging: false,
+                    fixedColumns: true
+                });
+
+            });
+
+        </script>*@
+</head>
+
+<body>
+    <div ng-app="MyApp" ng-controller="MyController">
+
+        @*BUSCAR USUARIO*@
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingSearchUsuario">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseSearchUsuario" aria-expanded="false" aria-controls="collapseSearchUsuario">
+                            <i class="fa"></i>
+                            Buscar Usuario
+                        </button>
+                        <i class="fa fa-search fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseSearchUsuario" class="collapse" aria-labelledby="headingSearchUsuario" data-parent="#accordion">
+                    <div class="card-body">
+
+                        @*Campos busqueda campaña*@
+                        <div id="BuscarCampana" class="container">
+                            <div class="row justify-content-md-center">
+                                <div class="col-lg-auto">
+
+                                    <form role="form" name="formulario" id="formulario" class="">
+                                        @*FORMULARIO*@
+
+                                        @*BUSCAR POR PPGID*@
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="ppgid">PPGID:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <input type="text" class="form-control text-uppercase" id="ppgid" name="ppgid" placeholder="PPGID"
+                                                       ng-model="PPGID" required>
+                                            </div>
+                                        </div>
+
+                                        @*BUSCAR POR CORREO*@
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="campana">Correo:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <input type="text" class="form-control input-nombre text-lowercase" id="correo" name="correo" placeholder="Correo"
+                                                       ng-model="Correo" required>
+                                            </div>
+                                        </div>
+
+                                        @*BUSCAR POR USUARIO*@
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="campana">Usuario:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <input type="text" class="form-control input-nombre text-uppercase" id="usuario" name="campana" placeholder="Usuario"
+                                                       ng-model="Usuario" required>
+                                            </div>
+                                        </div>
+
+                                        @*BUSCAR POR ROL*@
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="rol">Rol:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <select class="form-control" id="negocioLider" ng-model="RolCronograma" ng-options="data.Rol for data in ListRolCronograma | orderBy:'ID'" required>
+                                                    <option value="">-- SELECCIONE --</option>
+                                                </select>
+                                            </div>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-primary" ng-disabled="" ng-click="SearchUsuario(PPGID, Correo, Usuario, RolCronograma)"
+                                                        title="Buscar Usuario por uno o varios filtros.">
+                                                    <i class="fa fa-search fa-lg" aria-hidden="true"></i>Buscar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+
+        <br />
+
+        @*MOSTRAR USUARIO*@
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingUsuario">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseUsuario" aria-expanded="false" aria-controls="collapseUsuario">
+                            <i class="fa"></i>
+                            Usuario
+                        </button>
+                        <i class="fa fa-users fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseUsuario" class="collapse" aria-labelledby="headingUsuario" data-parent="#accordion">
+                    <div class="card-body">
+
+                        @*Campos busqueda campaña*@
+                        <div id="BuscarCampana" class="container">
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-auto table-responsive modal-body-max">
+
+                                    @*AGREGAR USUARIO*@
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalAdd" ng-disabled="" ng-click="ShowAddUsuario()"
+                                                    title="Agregar Usuario.">
+                                                <i class="fa fa-plus fa-lg" aria-hidden="true"></i> Agregar
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    @*TABLA USUARIOS*@
+                                    <table id="tableUsuario" class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                        <thead class="bg-blue">
+                                            <tr>
+                                                <th class="d-none">ID</th>
+                                                <th>PPGID</th>
+                                                <th>Usuario</th>
+                                                <th>Correo</th>
+                                                <th>Rol</th>
+                                                <th>Descripcion</th>
+                                                <th>Editar</th>
+                                                <th>Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                            <tr ng-repeat="d in ListUsuarioTemp">
+                                                <td class="d-none">{{d.ID}}</td>
+                                                <td>{{d.PPGID}}</td>
+                                                <td>{{d.Nombre}}</td>
+                                                <td>{{d.Correo}}</td>
+                                                <td>{{d.Rol}}</td>
+                                                <td>{{d.RolDescription}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalAdd" ng-click="ShowEditUsuario(d, d.RolCronograma)"
+                                                            title="Editar Usuario.">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalDelete" ng-click="ShowRemoveUsuario(d)"
+                                                            title="Eliminar Usuario.">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        @*MODAL AGREGAR EDITAR USUARIO LDAP*@
+        <div class="modal fade" id="myModalAdd" tabindex="-1" role="document" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" ng-class="ModalHeigth">
+
+                    @*Encabezado Modal*@
+                    <div class="modal-header">
+                        <div class="navbar-header navbar-header-modal row">
+                            <img src="~/Images/PPG_Layout.png" class="img-rounded img-modal-ppg" alt="Cinque Terre">
+                            <img src="~/Images/comex_layout_2.png" class="img-rounded img-modal-comex" alt="Cinque Terre">
+                            <h5 id="modalTitle" class="modal-title">{{TitleModal}}</h5>
+                        </div>
+
+                        <button type="button" class="close d-none" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    @*Cuerpo Modal*@
+                    <div class="modal-body modal-body-max">
+                        @*Formulario*@
+                        <form class="form-horizontal">
+                            <input type="hidden" id="id_indicador" />
+
+                            @*PPGID*@
+                            <div class="form-group input-group">
+                                <label class="control-label col-sm-2" for="ppgid">PPGID:</label>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    <input type="text" class="form-control text-uppercase" id="ppgid" name="ppgid" placeholder="PPGID"
+                                           ng-model="PPGIDLdap" required ng-readonly="ReadOnlyCampos">
+                                </div>
+                            </div>
+
+                            @*Correo*@
+                            <div class="form-group input-group">
+                                <label class="control-label col-sm-2" for="ppgid">Correo:</label>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    <input type="text" class="form-control text-lowercase" id="correo" name="correo" placeholder="Correo"
+                                           ng-model="CorreoLdap" required ng-readonly="ReadOnlyCampos">
+                                </div>
+                            </div>
+
+                            @*Usuario*@
+                            <div class="form-group input-group">
+                                <label class="control-label col-sm-2" for="ppgid">Nombre:</label>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    <input type="text" class="form-control text-uppercase" id="nombre" name="nombre" placeholder="Nombre" style="width:350px;max-width:450px;"
+                                           ng-model="NombreLdap" required ng-readonly="ReadOnlyCampos">
+                                </div>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" ng-disabled="ValidateSearchUsuarioLdap(PPGIDLdap, CorreoLdap, NombreLdap)" ng-click="SearchUsuarioLdap(PPGIDLdap, CorreoLdap, NombreLdap)">
+                                        <i class="fa fa-search fa-lg" aria-hidden="true"></i>Buscar
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            @*Rol*@
+                            <div class="form-group input-group">
+                                <label class="control-label col-sm-2" for="rol">Rol:</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="input-group-append">
+                                    <select class="form-control" id="negocioLider" ng-model="RolCronogramaAdd" ng-options="data as data.Rol for data in ListRolCronograma | orderBy:'ID' track by data.ID" required>
+                                        <option value="">-- SELECCIONE --</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            @*TABLA USUARIOS*@
+                            <div id="divTabla" ng-show="ShowTablaUsuario" class="col-md-auto table-responsive tabla-height">
+                                <table class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                    <thead class="bg-blue">
+                                        <tr>
+                                            <th>Seleccionar</th>
+                                            <th>PPGID</th>
+                                            <th>Correo</th>
+                                            <th>Usuario</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                        <tr ng-repeat="d in ListUsuarioLdapTemp">
+                                            <td style="text-align:center;vertical-align:middle;">
+                                                <input type="radio" class="radio-usuario" name="seleccionUsuarioLdap" ng-model="d.Seleccionar" ng-click="SeleccionarUsuarioLdap(d)"/>
+                                            </td>
+                                            <td>{{d.PPGID}}</td>
+                                            <td>{{d.Email}}</td>
+                                            <td>{{d.Nombre}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </form>
+                    </div>
+
+                    @*Pie Modal*@
+                    <div class="modal-footer div-centrar">
+
+                        <div id="divSave" ng-show="CssDivSaveModalButton">
+                            <div class="form-group row">
+                                <div class="col-md-6 div-centrar">
+                                    <button ng-disabled="ValidateSaveUsuario(RolCronogramaAdd, SeleccionUsuarioLdap)" id="saveModal" type="button" class="btn btn-primary" data-dismiss="modal" ng-click="AddUsuario(UsuarioLdap, RolCronogramaAdd)">
+                                        <i class="fa fa-save fa-lg" aria-hidden="true"></i> Guardar
+                                    </button>
+                                </div>
+                                <div class="col-md-6 div-centrar">
+                                    <button id="cancelarModal" type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="">
+                                        <i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i> Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divEdit" ng-show="CssDivEditModalButton">
+                            <div class="form-group row">
+                                <div class="col-md-6 div-centrar">
+                                    <button ng-disabled="ValidateEditUsuario(RolCronogramaAdd)" id="saveModal" type="button" class="btn btn-primary" data-dismiss="modal" ng-click="EditUsuario(UsuarioAdd, RolCronogramaAdd)">
+                                        <i class="fa fa-save fa-lg" aria-hidden="true"></i> Editar
+                                    </button>
+                                </div>
+                                <div class="col-md-6 div-centrar">
+                                    <button id="cancelarModal" type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="">
+                                        <i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i> Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        @*MODAL ALERTA ELIMINAR USUARIO*@
+        <div class="modal fade" id="myModalDelete" tabindex="-1" role="document" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    @*Encabezado Modal*@
+                    <div class="modal-header">
+                        <div class="navbar-header navbar-header-modal row">
+                            <img src="~/Images/PPG_Layout.png" class="img-rounded img-modal-ppg" alt="Cinque Terre">
+                            <img src="~/Images/comex_layout_2.png" class="img-rounded img-modal-comex" alt="Cinque Terre">
+                            <h5 id="modalTitle" class="modal-title" ng-model="TitleModal">{{TitleModal}}</h5>
+                        </div>
+
+                        <button type="button" class="close d-none" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    @*Cuerpo Modal*@
+                    <div class="modal-body">
+                        @*Formulario*@
+                        <form class="form-horizontal">
+                            <input type="hidden" id="id_indicador" />
+
+                            <div class="div-centrar alert alert-warning form-group input-group">
+                                <i class="fa fa-exclamation-triangle fa-warning" aria-hidden="true" style="width:100px"></i>
+                                <h5 class="input-group-append">¿Esta seguro que desea eliminar el usuario?</h5>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    @*Pie Modal*@
+                    <div class="modal-footer div-centrar">
+
+                        <div id="divSave">
+                            <div class="form-group row">
+                                <div class="col-md-6 div-centrar">
+                                    <button id="saveModal" type="button" class="btn btn-primary" data-dismiss="modal" ng-click="RemoveUsuario(UsuarioAdd)">
+                                        <i class="fa fa-save fa-lg" aria-hidden="true"></i> Eliminar
+                                    </button>
+                                </div>
+                                <div class="col-md-6 div-centrar">
+                                    <button id="cancelarModal" type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="">
+                                        <i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i> Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+    </div>
+</body>

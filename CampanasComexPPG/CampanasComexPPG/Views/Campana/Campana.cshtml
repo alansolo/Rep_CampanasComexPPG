@@ -1,0 +1,1220 @@
+﻿
+@{
+    ViewBag.Title = "Campana";
+    Layout = "~/Views/Shared/_LayoutCampana.cshtml";
+}
+
+<h2></h2>
+
+<head>
+
+    <script src="~/Scripts/Campana/Campana.js"></script>
+    <link href="~/Content/Campana/Campana.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div ng-app="MyApp" ng-controller="MyController">
+
+        @*BUSCAR CAMPAÑA*@
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingSearchCampania">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseSearchCampania" aria-expanded="false" aria-controls="collapseSearchCampania">
+                            <i class="fa"></i>
+                            Buscar campaña
+                        </button>
+                        <i class="fa fa-search fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseSearchCampania" class="collapse" aria-labelledby="headingSearchCampania" data-parent="#accordion">
+                    <div class="card-body">
+
+                        @*Campos busqueda campaña*@
+                        <div id="BuscarCampana" class="container">
+                            <div class="row justify-content-md-center">
+                                <div class="col-lg-auto">
+
+                                    <form role="form" name="formulario" id="formulario" class="">
+
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="claveCampania">Clave Campaña:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <input type="text" class="form-control text-uppercase" id="claveCampania" placeholder="Clave Campaña" name="claveCampania"
+                                                       ng-model="Camp_Number" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="campania">Campaña:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <input type="text" class="form-control text-uppercase" id="campania" placeholder="Campaña" name="campania"
+                                                       ng-model="Nombre_Camp" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="express">Urgente:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <select class="form-control" id="negocioLider" ng-model="TipoUrgente" ng-options="data.Descripcion for data in ListTipoUrgente | orderBy:'ID'" required>
+                                                    <option value="">-- SELECCIONE --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="tipoSell">Tipo Sell:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <select class="form-control" id="negocioLider" ng-model="TipoSell" ng-options="data.Sell for data in ListTipoSell | orderBy:'ID'" required>
+                                                    <option value="">-- SELECCIONE --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="tipoCampania">Tipo Campaña:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <select class="form-control" id="negocioLider" ng-model="TipoCampania" ng-options="data.Tipo for data in ListTipoCampania | orderBy:'ID'" required>
+                                                    <option value="">-- SELECCIONE --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group input-group">
+                                            <label class="control-label width-control" for="alcance">Alcance:</label>
+                                            &nbsp;
+                                            <div class="input-group-append">
+                                                <select class="form-control" id="negocioLider" ng-model="TipoAlcance" ng-options="data.Alcance for data in ListTipoAlcance | orderBy:'ID'" required>
+                                                    <option value="">-- SELECCIONE --</option>
+                                                </select>
+                                            </div>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-primary" ng-disabled="" title="Buscar Campaña por uno o varios filtros."
+                                                    ng-click="SearchCampana(Camp_Number, Nombre_Camp, TipoUrgente, TipoSell, TipoCampania, TipoAlcance)">
+                                                    <i class="fa fa-search fa-lg" aria-hidden="true"></i>Buscar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        @*CAMPAÑAS*@
+        <div id="accordionCampania">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCampania" aria-expanded="false" aria-controls="collapseCampania">
+                            <i class="fa collapsed-start"></i>
+                            Campañas
+                        </button>
+                        <i class="fa fa-file-signature fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseCampania" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+
+                        @*Campañas*@
+                        <div id="Campana" class="container">
+                            <div class="row justify-content-md-center">
+                                <div id="divTabla" class="col-md-auto table-responsive">
+
+                                    <table class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                        <thead class="bg-blue">
+                                            <tr>
+                                                <th class="d-none">id_campana</th>
+                                                <th>Clave</th>
+                                                <th>Campaña</th>
+                                                <th class="d-none">Estatus</th>
+                                                <th>Fecha Creacion</th>
+                                                <th>Usuario Registro</th>
+                                                <th>Lider Campaña</th>
+                                                <th>Urgente</th>
+                                                <th>Tipo Sell</th>
+                                                <th>Tipo Campaña</th>
+                                                <th>Alcance</th>
+                                                <th>Tipo SubCanal</th>
+                                                <th>Inicio Publico</th>
+                                                <th>Fin Publico</th>
+                                                <th>Detalle</th>
+                                                <th>Ver Cronograma</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                            <tr ng-repeat="d in ListCampanaTemp">
+                                                <td class="d-none">{{d.ID}}</td>
+                                                <td>{{d.Camp_Number}}</td>
+                                                <td>{{d.Nombre_Camp}}</td>
+                                                <td class="d-none">{{d.EstatusCat}}</td>
+                                                <td>{{d.Fecha_Creacion}}</td>
+                                                <td>{{d.Nombre_Usuario}}</td>
+                                                <td>{{d.Lider_Campania}}</td>
+                                                <td>{{d.strExpress}}</td>
+                                                <td>{{d.TipoSell}}</td>
+                                                <td>{{d.TipoCamp}}</td>
+                                                <td>{{d.Alcance}}</td>
+                                                <td>{{d.TipoSubCanal}}</td>
+                                                <td>{{d.Fecha_Inicio_Publico}}</td>
+                                                <td>{{d.Fecha_Fin_Publico}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalDetalleCampana" ng-click="GetDetalleCampana(d)"
+                                                            title="Ver detalle de la Campaña.">
+                                                        <i class="fa fa-list-ul fa-lg" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" ng-click="GetCronograma(d)" title="Ver Cronograma de la Campaña.">
+                                                        <i class="fa fa-project-diagram fa-lg" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        @*CRONOGRAMA*@
+        <div id="accordionCronograma">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCronograma" aria-expanded="false" aria-controls="collapseCronograma">
+                            <i class="fa collapsed-start"></i>
+                            Cronograma
+                        </button>
+                        <i class="fa fa-tasks fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseCronograma" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+
+                        @*<div class="">
+                            <button ng-disabled="" id="saveModal" type="button" class="btn btn-primary" ng-click="GetCronograma()">
+                                <i class="fa fa-upload fa-lg" aria-hidden="true"></i> Prueba Cronograma
+                            </button>
+                        </div>*@
+
+                        <div class="row justify-content-md-center">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="justify-content-md-center">
+                                                <h5 class="header-color" ng-show="MostrarCampana(Campana)" ng-model="Campana.Camp_Number"><strong>Clave: {{Campana.Camp_Number}}</strong></h5>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="justify-content-md-center">
+                                                <h5 class="header-color" ng-show="MostrarCampana(Campana)" ng-model="Campana.Nombre_Camp"><strong>Campaña: {{Campana.Nombre_Camp}}</strong></h5>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <br />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div ng-show="MostrarEstatusAvance(EstatusAvance)" class="justify-content-md-center">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="header-color text-center"><h5>Real</h5></td>
+                                                            <td class="header-color text-center"><h5>Planeado</h5></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="header-color text-center"><h5>Avance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5></td>
+                                                            <td class="header-color text-center porcentajeGeneral" style="border:solid"><h5 class="header-color" ng-show="MostrarPorcentajeGeneralUsuario(PorcentajeGeneralUsuario)">{{PorcentajeGeneralUsuario}} %</h5></td>
+                                                            <td class="header-color text-center porcentajeGeneral" style="border:solid"><h5 class="header-color" ng-show="MostrarPorcentajeGeneralSistema(PorcentajeGeneralSistema)">{{PorcentajeGeneralSistema}} %</h5></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                @*<h5 class="header-color" ng-show="MostrarPorcentajeGeneralSistema(PorcentajeGeneralSistema)" ng-model="PorcentajeGeneralSistema">Avance Real: {{PorcentajeGeneralSistema}} %</h5>*@
+                                                @*<h5 class="header-color" ng-show="MostrarPorcentajeGeneralUsuario(PorcentajeGeneralUsuario)" ng-model="PorcentajeGeneralUsuario">Avance Planeado: {{PorcentajeGeneralUsuario}} %</h5>*@
+                                                @*<h5 class="header-color" ng-show="MostrarPorcentajeGeneralUsuario(PorcentajeGeneralUsuario)" ng-model="PorcentajeEsfuerzoUsuario">Avance Planeado Esfuerzo: {{PorcentajeEsfuerzoUsuario}} %</h5>*@
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div ng-show="MostrarEstatusAvance(EstatusAvance)" class="container-sema border" title="{{EstatusAvance}}">
+                                                <div class="light_1 red" ng-class="EstatusSemaforoRojo" id="red"></div>
+                                                <div class="spacer"></div>
+                                                <div class="light_2 yellow" ng-class="EstatusSemaforoAmarillo" id="yellow"></div>
+                                                <div class="spacer"></div>
+                                                <div class="light_3 green" ng-class="EstatusSemaforoVerde" id="green"></div>
+                                            </div>
+                                        </td>
+                                        @*<td>
+                                            <div class="justify-content-md-center">
+                                                <h5 class="header-color" ng-show="MostrarEstatusAvance(EstatusAvance)" ng-model="EstatusAvance">Estatus Avance: {{EstatusAvance}}</h5>
+                                                <h5 class="header-color" ng-show="MostrarEstatusGeneral(EstatusGeneral)" ng-model="EstatusGeneral">Estatus Campaña: {{EstatusGeneral}}</h5>
+                                            </div>
+                                        </td>*@
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <br />
+
+                        <div id="planActividades" class="container">
+                            <div class="row justify-content-md-center">
+
+                                <div class="col-md-auto table-responsive modal-body-max">
+                                    <table class="tree table table-sm table-small-font table-bordered table-hover" id="tree">
+                                        <thead class="bg-blue">
+                                            <tr>
+                                                <th class="width-control-idTarea">Tarea</th>
+                                                <th class="width-control-estatus">E. Planeado</th>
+                                                <th class="width-control-estatus">E. Real</th>
+                                                <th>Actividad</th>
+                                                <th class="d-none">IdPadre</th>
+                                                <th>Duracion</th>
+                                                <th>Inicio Planeado</th>
+                                                <th>Fin Planeado</th>
+                                                <th>Inicio Real</th>
+                                                <th>Fin Real</th>
+                                                <th>Predecesor</th>
+                                                <th>% Planeado</th>
+                                                <th style="min-width:100px">% Real</th>
+                                                <th class="d-none">% Sistema Real</th>
+                                                <th>Nombre Recurso 1</th>
+                                                <th>Correo 1</th>
+                                                <th>Nombre Recurso 2</th>
+                                                <th>Correo 2</th>
+                                                <th class="d-none">Comentario</th>
+                                                <th class="d-none">Version</th>
+                                                <th class="d-none">IdTreePadre</th>
+                                                <th class="d-none">IdCampaña</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="d in ListCronograma" ng-class="d.IdTreePadre">
+                                                <td><strong>{{d.IDTarea}}</strong></td>
+                                                <td>
+                                                    <div class="light-activity" ng-class="d.EstatusColor" title="{{d.EstatusActividad}}"></div>
+                                                </td>
+                                                <td>
+                                                    <div class="light-activity" ng-class="d.EstatusColorReal" title="{{d.EstatusActividadReal}}"></div>
+                                                </td>
+                                                <td>{{d.Actividad}}</td>
+                                                <td class="d-none">{{d.IDPadre}}</td>
+                                                <td>{{d.Duracion}}</td>
+                                                <td>
+                                                    <div class="input-group fecha-heigth">
+                                                        <input type="text" class="form-control fecha fecha-readonly" id="fechaDocumento" name="fecha"
+                                                               placeholder="DD/MM/YYYY" ng-model="d.FechaInicio" value="{{d.FechaInicio}}"
+                                                               ng-change="EditTextoCronograma(d)" required readonly disabled @*ng-disabled="!d.RolAdministrador"*@ />
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">
+                                                                <i class="fa fa-calendar-alt fa-lg"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group fecha-heigth">
+                                                        <input type="text" class="form-control fecha fecha-readonly" id="fechaDocumento" name="fecha"
+                                                               placeholder="DD/MM/YYYY" ng-model="d.FechaFin" value="{{d.FechaFin}}"
+                                                               ng-change="EditTextoCronograma(d)" required readonly disabled @*ng-disabled="!d.RolAdministrador"*@ />
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">
+                                                                <i class="fa fa-calendar-alt fa-lg"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group fecha-heigth">
+                                                        <input type="text" class="form-control fecha" id="fechaDocumento" name="fecha"
+                                                               placeholder="DD/MM/YYYY" ng-model="d.FechaInicioReal" value="{{d.FechaInicioReal}}"
+                                                               ng-change="EditTextoCronograma(d)" required disabled />
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">
+                                                                <i class="fa fa-calendar-alt fa-lg"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group fecha-heigth">
+                                                        <input type="text" class="form-control fecha" id="fechaDocumento" name="fecha"
+                                                               placeholder="DD/MM/YYYY" ng-model="d.FechaFinReal" value="{{d.FechaFinReal}}"
+                                                               ng-change="EditTextoCronograma(d)" required disabled />
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">
+                                                                <i class="fa fa-calendar-alt fa-lg"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {{d.Predecesor}}
+                                                </td>
+                                                <td>
+                                                    {{d.PorcentajeSistema}}
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control text-uppercase" id="porcentajeUsuario" placeholder="" name="porcentajeUsuario"
+                                                           ng-model="d.PorcentajeUsuario" value="{{d.PorcentajeUsuario}}" ng-change="EditTextoCronograma(d)" required ng-disabled="SoloLecturaPorcentaje(d.Padre, d.Concluida)"
+                                                           step="0.1" min="0" max="100" valid-decimal limit-to-max limit-to-min delet-to-cero readonly />
+                                                </td>
+                                                <td class="d-none">
+                                                    {{d.PorcentajeSistemaReal}}
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control text-uppercase nombre-heigth" id="porcentajeUsuario" placeholder="" name="porcentajeUsuario"
+                                                           ng-model="d.NombreResponsable" value="{{d.NombreResponsable}}" required readonly />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control correo-heigth" id="porcentajeUsuario" placeholder="" name="porcentajeUsuario"
+                                                           ng-model="d.Correo" value="{{d.Correo}}" data-toggle="modal" data-target="#myModalAddUsuarioLdap" ng-click="ShowEditUsuarioLdap(d)" required readonly ng-disabled="d.Padre" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control text-uppercase nombre-heigth" id="porcentajeUsuario" placeholder="" name="porcentajeUsuario"
+                                                           ng-model="d.NombreResponsable_2" value="{{d.NombreResponsable_2}}" required readonly />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control correo-heigth" id="porcentajeUsuario" placeholder="" name="porcentajeUsuario"
+                                                           ng-model="d.Correo_2" value="{{d.Correo_2}}" data-toggle="modal" data-target="#myModalAddUsuarioLdap" ng-click="ShowEditUsuarioLdap_2(d)" required readonly ng-disabled="d.Padre" />
+                                                </td>
+                                                <td class="d-none">{{d.Comentario}}</td>
+                                                <td class="d-none">{{d.VersionCronograma}}</td>
+                                                <td class="d-none">{{d.IdTreePadre}}</td>
+                                                <td class="d-none">{{d.IDCampania}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        @*EDITAR CRONOGRAMA*@
+                        <div class="input-group row justify-content-md-center d-none">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-primary" ng-disabled="" ng-click="EditCronograma(ListCronograma)">
+                                    <i class="fa fa-edit fa-lg" aria-hidden="true"></i> Editar
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        @*RECARGAR CRONOGRAMA*@
+        <div id="accordionRecargarCronograma" class="" ng-show="EsEditarCronograma">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseReLoadCronograma" aria-expanded="false" aria-controls="collapseReLoadCronograma">
+                            <i class="fa"></i>
+                            Recargar Cronograma
+                        </button>
+                        <i class="fa fa-poll-h fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseReLoadCronograma" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+
+                        <div class="row justify-content-md-center">
+                            <table style="width:100%">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">
+                                            <div class="justify-content-md-center">
+                                                <h5 class="header-color" ng-show="MostrarCampana(Campana)" ng-model="Campana.Camp_Number"><strong>Clave: {{Campana.Camp_Number}}</strong></h5>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="justify-content-md-center">
+                                                <h5 class="header-color" ng-show="MostrarCampana(Campana)" ng-model="Campana.Nombre_Camp"><strong>Campaña: {{Campana.Nombre_Camp}}</strong></h5>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <br />
+
+                        @*Seleccionar archivo*@
+                        <div id="SeleccionarArchivo" class="container">
+
+                            <div class="row justify-content-md-center">
+                                <div class="col-lg-auto">
+
+                                    <div class="input-group" style="height:38px;">
+                                        <label class="control-label" for="archivo">Archivo:</label>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div class="input-group-append">
+                                            <input type="text" class="form-control text-file" ng-model="file.name" value="{{file.name}}" readonly>
+                                            <label class="btn-group" style="height:38px;">
+                                                <span class="btn btn-primary">
+                                                    <i class="fa fa-folder-open fa-lg" aria-hidden="true"></i>
+                                                    Examinar&hellip;
+                                                    <input type="file" id="myFile" style="display:none;" onchange="angular.element(this).scope().SeleccionarArchivoActividades(this)" ng-model="file"
+                                                           accept=".xlsx, .xls, application/vnd.ms-excel">
+                                                </span>
+                                            </label>
+                                        </div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div class="input-group-append">
+                                            <button ng-disabled="" id="saveModal" type="button" class="btn btn-primary btnHeightDefault" ng-click="RecargaCronograma()">
+                                                <i class="fa fa-upload fa-lg" aria-hidden="true"></i> Subir
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="input-group justify-content-center">
+                                        <a href="@Url.Action("ExportarCronograma","Campana")" class="btn btn-primary" id="ExportarCronograma">
+                                            <i class="fa fa-download fa-lg" aria-hidden="true"></i> Descargar Cronograma
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <br />
+
+                            @*Plan actividades*@
+                            <div id="planActividades" class="container">
+                                <div class="row justify-content-md-center">
+
+                                    <div class="col-md-auto table-responsive modal-body-max">
+                                        <table class="tree table table-sm table-small-font table-bordered table-hover" id="tree">
+                                            <thead class="bg-blue">
+                                                <tr>
+                                                    <th class="width-control-idTarea">Tarea</th>
+                                                    <th class="width-control-estatus d-none">Estatus</th>
+                                                    <th>Actividad</th>
+                                                    <th class="d-none">IdPadre</th>
+                                                    <th>Duracion</th>
+                                                    <th>Inicio Planeado</th>
+                                                    <th>Fin Planeado</th>
+                                                    <th>Inicio Real</th>
+                                                    <th>Fin Real</th>
+                                                    <th>Predecesor</th>
+                                                    <th>% Planeado</th>
+                                                    <th style="min-width:100px">% Real</th>
+                                                    <th>Nombre Recurso</th>
+                                                    <th>Correo</th>
+                                                    <th>Nombre Recurso 2</th>
+                                                    <th>Correo 2</th>
+                                                    <th>Incluir</th>
+                                                    <th>Tipo Flujo</th>
+                                                    <th>Validar Datos</th>
+                                                    <th>Validar Predecesor</th>
+                                                    <th>Validar Fecha</th>
+                                                    <th>Validar Fecha Programada</th>
+                                                    <th class="d-none">Comentario</th>
+                                                    <th class="d-none">Version</th>
+                                                    <th class="d-none">IdTreePadre</th>
+                                                    <th class="d-none">IdCampaña</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="d in ListCronogramaRecargar" ng-class="[d.IdTreePadre, d.EstatusIncluir]">
+                                                    <td><strong>{{d.IDTarea}}</strong></td>
+                                                    <td class="d-none">
+                                                        <div class="light-activity" ng-class="d.EstatusColor"></div>
+                                                    </td>
+                                                    <td>{{d.Actividad}}</td>
+                                                    <td class="d-none">{{d.IDPadre}}</td>
+                                                    <td>{{d.Duracion}}</td>
+                                                    <td>
+                                                        <div class="input-group fecha-heigth">
+                                                            <input type="text" class="form-control fecha fecha-readonly" id="fechaDocumento" name="fecha"
+                                                                   placeholder="DD/MM/YYYY" ng-model="d.FechaInicio" value="{{d.FechaInicio}}"
+                                                                   ng-change="EditTextoCronograma(d)" required readonly disabled @*ng-disabled="!d.RolAdministrador"*@ />
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon2">
+                                                                    <i class="fa fa-calendar-alt fa-lg"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group fecha-heigth">
+                                                            <input type="text" class="form-control fecha fecha-readonly" id="fechaDocumento" name="fecha"
+                                                                   placeholder="DD/MM/YYYY" ng-model="d.FechaFin" value="{{d.FechaFin}}"
+                                                                   ng-change="EditTextoCronograma(d)" required readonly disabled @*ng-disabled="!d.RolAdministrador"*@ />
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon2">
+                                                                    <i class="fa fa-calendar-alt fa-lg"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group fecha-heigth">
+                                                            <input type="text" class="form-control fecha" id="fechaDocumento" name="fecha"
+                                                                   placeholder="DD/MM/YYYY" ng-model="d.FechaInicioReal" value="{{d.FechaInicioReal}}"
+                                                                   ng-change="EditTextoCronograma(d)" required disabled />
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon2">
+                                                                    <i class="fa fa-calendar-alt fa-lg"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group fecha-heigth">
+                                                            <input type="text" class="form-control fecha" id="fechaDocumento" name="fecha"
+                                                                   placeholder="DD/MM/YYYY" ng-model="d.FechaFinReal" value="{{d.FechaFinReal}}"
+                                                                   ng-change="EditTextoCronograma(d)" required disabled />
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon2">
+                                                                    <i class="fa fa-calendar-alt fa-lg"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {{d.Predecesor}}
+                                                    </td>
+                                                    <td>
+                                                        {{d.PorcentajeSistema}}
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control text-uppercase" id="porcentajeUsuario" placeholder="" name="porcentajeUsuario"
+                                                               ng-model="d.PorcentajeUsuario" value="{{d.PorcentajeUsuario}}" ng-change="EditTextoCronograma(d)" required ng-disabled="true" @*ng-disabled="SoloLecturaPorcentaje(d.Padre, d.Concluida)"*@
+                                                               step="0.1" min="0" max="100" valid-decimal limit-to-max limit-to-min delet-to-cero />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control text-uppercase nombre-heigth" id="porcentajeUsuario" placeholder="" name="porcentajeUsuario"
+                                                               ng-model="d.NombreResponsable" value="{{d.NombreResponsable}}" required readonly />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control correo-heigth" id="porcentajeUsuario" placeholder="" name="porcentajeUsuario"
+                                                               ng-model="d.Correo" value="{{d.Correo}}" data-toggle="modal" data-target="#myModalAddUsuarioLdap" ng-click="ShowEditUsuarioLdap(d)" required readonly ng-disabled="d.Padre" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control text-uppercase nombre-heigth" id="porcentajeUsuario" placeholder="" name="porcentajeUsuario"
+                                                               ng-model="d.NombreResponsable_2" value="{{d.NombreResponsable_2}}" required readonly />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control correo-heigth" id="porcentajeUsuario" placeholder="" name="porcentajeUsuario"
+                                                               ng-model="d.Correo_2" value="{{d.Correo_2}}" data-toggle="modal" data-target="#myModalAddUsuarioLdap" ng-click="ShowEditUsuarioLdap_2(d)" required readonly ng-disabled="d.Padre" />
+                                                    </td>
+                                                    <td>
+                                                        {{d.Incluir}}
+                                                    </td>
+                                                    <td>
+                                                        {{d.TipoFlujo}}
+                                                    </td>
+                                                    <td class="text-danger texto-danger">
+                                                        {{d.ValidarDatos}}
+                                                    </td>
+                                                    <td class="text-warning texto-warning">
+                                                        {{d.ValidarPredecesor}}
+                                                    </td>
+                                                    <td class="text-danger texto-danger">
+                                                        {{d.ValidarFecha}}
+                                                    </td>
+                                                    <td class="text-warning texto-warning">
+                                                        {{d.ValidarFechaProgramada}}
+                                                    </td>
+                                                    <td class="d-none">{{d.Comentario}}</td>
+                                                    <td class="d-none">{{d.VersionCronograma}}</td>
+                                                    <td class="d-none">{{d.IdTreePadre}}</td>
+                                                    <td class="d-none">{{d.IDCampania}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+
+                            @*EDITAR CRONOGRAMA*@
+                            <div class="input-group row justify-content-md-center">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" ng-disabled="!Correcto" ng-click="ReSaveCronograma()">
+                                        <i class="fa fa-edit fa-lg" aria-hidden="true"></i> Editar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+        </div>
+
+        <br />
+
+        @*MODAL DETALLE CAMPAÑA*@
+        <div class="modal fade" id="myModalDetalleCampana" tabindex="-1" role="document" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-max modal-lg modal-lg-max" role="document">
+                <div class="modal-content">
+
+                    @*Encabezado Modal*@
+                    <div class="modal-header">
+                        <div class="navbar-header navbar-header-modal row">
+                            <img src="~/Images/PPG_Layout.png" class="col-sm-2 img-rounded img-modal-ppg" alt="Cinque Terre">
+                            <img src="~/Images/comex_layout_2.png" class="col-sm-4 img-rounded img-modal-comex" alt="Cinque Terre">
+                            <h5 id="modalTitle" class="col-sm-6 modal-title">Detalle Productos Campañia</h5>
+                        </div>
+
+                        <button type="button" class="close d-none" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    @*Cuerpo Modal*@
+                    <div class="modal-body modal-body-max">
+                        @*Formulario*@
+                        <form class="form-horizontal">
+                            <input type="hidden" id="id_indicador" />
+
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link nav-color-black active tab-color" id="nav-tab-regalo" data-toggle="tab" href="#nav-regalo" role="tab" aria-controls="nav-regalo" aria-selected="true">Regalo</a>
+                                    <a class="nav-item nav-link nav-color-black tab-color" id="nav-tab-multiplo" data-toggle="tab" href="#nav-multiplo" role="tab" aria-controls="nav-multiplo" aria-selected="false">Multiplo</a>
+                                    <a class="nav-item nav-link nav-color-black tab-color" id="nav-tab-descuento" data-toggle="tab" href="#nav-descuento" role="tab" aria-controls="nav-descuento" aria-selected="false">Descuento</a>
+                                    <a class="nav-item nav-link nav-color-black tab-color" id="nav-tab-volumen" data-toggle="tab" href="#nav-volumen" role="tab" aria-controls="nav-volumen" aria-selected="false">Volumen</a>
+                                    <a class="nav-item nav-link nav-color-black tab-color" id="nav-tab-kit" data-toggle="tab" href="#nav-kit" role="tab" aria-controls="nav-kit" aria-selected="false">Kit</a>
+                                    <a class="nav-item nav-link nav-color-black tab-color" id="nav-tab-combo" data-toggle="tab" href="#nav-combo" role="tab" aria-controls="nav-combo" aria-selected="false">Combo</a>
+                                    <a class="nav-item nav-link nav-color-black tab-color" id="nav-tab-tiendas" data-toggle="tab" href="#nav-tiendas" role="tab" aria-controls="nav-tiendas" aria-selected="false">Tiendas</a>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-regalo" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                                    @*DETALLE PRODUCTOS MECANICA REGALO*@
+                                    <div id="Campana" class="container">
+                                        <div class="row justify-content-md-center">
+                                            <div id="divTabla" class="col-md-auto table-responsive tabla-height">
+
+                                                <table class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                                    <thead class="bg-blue">
+                                                        <tr>
+                                                            <th class="d-none">id_campana</th>
+                                                            <th>Clave Campana</th>
+                                                            <th>Familia</th>
+                                                            <th>SKU</th>
+                                                            <th>Descripcion</th>
+                                                            <th>Tipo</th>
+                                                            <th>Grupo Regalo</th>
+                                                            <th>Numero Hijo</th>
+                                                            <th>Alcance</th>
+                                                            <th>Capacidad</th>
+                                                            <th>Dinamica</th>
+                                                            <th>Venta Litros Año Anterior</th>
+                                                            <th>Presupuesto Litros Sin Campaña</th>
+                                                            <th>Presupuesto Litros Con Campaña</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                                        <tr ng-repeat="d in ListMecanicaRegalo">
+                                                            <td class="d-none">{{d.IdCampana}}</td>
+                                                            <td>{{d.ClaveCampana}}</td>
+                                                            <td>{{d.Familia}}</td>
+                                                            <td>{{d.SKU}}</td>
+                                                            <td>{{d.Descripcion}}</td>
+                                                            <td>{{d.Tipo}}</td>
+                                                            <td>{{d.Grupo_Regalo}}</td>
+                                                            <td>{{d.NumeroHijo}}</td>
+                                                            <td>{{d.Alcance}}</td>
+                                                            <td>{{d.Capacidad}}</td>
+                                                            <td>{{d.Dinamica}}</td>
+                                                            <td>{{d.VLitrosAnioAnt}}</td>
+                                                            <td>{{d.PLitrosSinCamp}}</td>
+                                                            <td>{{d.PLitrosConCamp}}</td>
+                                                        </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-multiplo" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                                    @*DETALLE PRODUCTOS MECANICA MULTIPLO*@
+                                    <div id="Campana" class="container">
+                                        <div class="row justify-content-md-center">
+                                            <div id="divTabla" class="col-md-auto table-responsive tabla-height">
+
+                                                <table class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                                    <thead class="bg-blue">
+                                                        <tr>
+                                                            <th class="d-none">id_campana</th>
+                                                            <th>Clave Campana</th>
+                                                            <th>Familia</th>
+                                                            <th>SKU</th>
+                                                            <th>Descripcion</th>
+                                                            <th>Alcance</th>
+                                                            <th>Capacidad</th>
+                                                            <th>Dinamica</th>
+                                                            <th>Multiplo Padre</th>
+                                                            <th>Multiplo Hijo</th>
+                                                            <th>Punto Venta</th>
+                                                            <th>Venta Litros Año Anterior</th>
+                                                            <th>Presupuesto Litros Sin Campaña</th>
+                                                            <th>Presupuesto Litros Con Campaña</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                                        <tr ng-repeat="d in ListMecanicaMultiplo">
+                                                            <td class="d-none">{{d.IdCampana}}</td>
+                                                            <td>{{d.ClaveCampana}}</td>
+                                                            <td>{{d.Familia}}</td>
+                                                            <td>{{d.SKU}}</td>
+                                                            <td>{{d.Descripcion}}</td>
+                                                            <td>{{d.Alcance}}</td>
+                                                            <td>{{d.Capacidad}}</td>
+                                                            <td>{{d.Dinamica}}</td>
+                                                            <td>{{d.Multiplo_Padre}}</td>
+                                                            <td>{{d.Multiplo_Hijo}}</td>
+                                                            <td>{{d.Punto_Venta}}</td>
+                                                            <td>{{d.VLitrosAnioAnt}}</td>
+                                                            <td>{{d.PLitrosSinCamp}}</td>
+                                                            <td>{{d.PLitrosConCamp}}</td>
+                                                        </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-descuento" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                                    @*DETALLE PRODUCTOS MECANICA DESCUENTO*@
+                                    <div id="Campana" class="container">
+                                        <div class="row justify-content-md-center">
+                                            <div id="divTabla" class="col-md-auto table-responsive tabla-height">
+
+                                                <table class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                                    <thead class="bg-blue">
+                                                        <tr>
+                                                            <th class="d-none">id_campana</th>
+                                                            <th>Clave Campana</th>
+                                                            <th>Familia</th>
+                                                            <th>SKU</th>
+                                                            <th>Descripcion</th>
+                                                            <th>Alcance</th>
+                                                            <th>Capacidad</th>
+                                                            <th>Dinamica</th>
+                                                            <th>Porcentaje</th>
+                                                            <th>Importe</th>
+                                                            <th>Venta Litros Año Anterior</th>
+                                                            <th>Presupuesto Litros Sin Campaña</th>
+                                                            <th>Presupuesto Litros Con Campaña</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                                        <tr ng-repeat="d in ListMecanicaDescuento">
+                                                            <td class="d-none">{{d.IdCampana}}</td>
+                                                            <td>{{d.ClaveCampana}}</td>
+                                                            <td>{{d.Familia}}</td>
+                                                            <td>{{d.SKU}}</td>
+                                                            <td>{{d.Descripcion}}</td>
+                                                            <td>{{d.Alcance}}</td>
+                                                            <td>{{d.Capacidad}}</td>
+                                                            <td>{{d.Dinamica}}</td>
+                                                            <td>{{d.Porcentaje}}</td>
+                                                            <td>{{d.Importe}}</td>
+                                                            <td>{{d.VLitrosAnioAnt}}</td>
+                                                            <td>{{d.PLitrosSinCamp}}</td>
+                                                            <td>{{d.PLitrosConCamp}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-volumen" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                                    @*DETALLE PRODUCTOS MECANICA VOLUMEN*@
+                                    <div id="Campana" class="container">
+                                        <div class="row justify-content-md-center">
+                                            <div id="divTabla" class="col-md-auto table-responsive tabla-height">
+
+                                                <table class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                                    <thead class="bg-blue">
+                                                        <tr>
+                                                            <th class="d-none">id_campana</th>
+                                                            <th>Clave Campana</th>
+                                                            <th>Familia</th>
+                                                            <th>SKU</th>
+                                                            <th>Descripcion</th>
+                                                            <th>Bloque</th>
+                                                            <th>Alcance</th>
+                                                            <th>Capacidad</th>
+                                                            <th>Dinamica</th>
+                                                            <th>Desde</th>
+                                                            <th>Hasta</th>
+                                                            <th>Descuento</th>
+                                                            <th>Venta Litros Año Anterior</th>
+                                                            <th>Presupuesto Litros Sin Campaña</th>
+                                                            <th>Presupuesto Litros Con Campaña</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                                        <tr ng-repeat="d in ListMecanicaMultiplo">
+                                                            <td class="d-none">{{d.IdCampana}}</td>
+                                                            <td>{{d.ClaveCampana}}</td>
+                                                            <td>{{d.Familia}}</td>
+                                                            <td>{{d.SKU}}</td>
+                                                            <td>{{d.Descripcion}}</td>
+                                                            <td>{{d.Bloque}}</td>
+                                                            <td>{{d.Alcance}}</td>
+                                                            <td>{{d.Capacidad}}</td>
+                                                            <td>{{d.Dinamica}}</td>
+                                                            <td>{{d.De}}</td>
+                                                            <td>{{d.Hasta}}</td>
+                                                            <td>{{d.Descuento}}</td>
+                                                            <td>{{d.VLitrosAnioAnt}}</td>
+                                                            <td>{{d.PLitrosSinCamp}}</td>
+                                                            <td>{{d.PLitrosConCamp}}</td>
+                                                        </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-kit" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                                    @*DETALLE PRODUCTOS MECANICA KIT*@
+                                    <div id="Campana" class="container">
+                                        <div class="row justify-content-md-center">
+                                            <div id="divTabla" class="col-md-auto table-responsive tabla-height">
+
+                                                <table class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                                    <thead class="bg-blue">
+                                                        <tr>
+                                                            <th class="d-none">id_campana</th>
+                                                            <th>Clave Campana</th>
+                                                            <th>Familia</th>
+                                                            <th>SKU</th>
+                                                            <th>Descripcion</th>
+                                                            <th>Alcance</th>
+                                                            <th>Capacidad</th>
+                                                            <th>Dinamica</th>
+                                                            <th>Porcentaje</th>
+                                                            <th>Importe</th>
+                                                            <th>Venta Litros Año Anterior</th>
+                                                            <th>Presupuesto Litros Sin Campaña</th>
+                                                            <th>Presupuesto Litros Con Campaña</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                                        <tr ng-repeat="d in ListMecanicaMultiplo">
+                                                            <td class="d-none">{{d.IdCampana}}</td>
+                                                            <td>{{d.ClaveCampana}}</td>
+                                                            <td>{{d.Familia}}</td>
+                                                            <td>{{d.SKU}}</td>
+                                                            <td>{{d.Descripcion}}</td>
+                                                            <td>{{d.Alcance}}</td>
+                                                            <td>{{d.Capacidad}}</td>
+                                                            <td>{{d.Dinamica}}</td>
+                                                            <td>{{d.Porcentaje}}</td>
+                                                            <td>{{d.Importe}}</td>
+                                                            <td>{{d.VLitrosAnioAnt}}</td>
+                                                            <td>{{d.PLitrosSinCamp}}</td>
+                                                            <td>{{d.PLitrosConCamp}}</td>
+                                                        </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-combo" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                                    @*DETALLE PRODUCTOS MECANICA COMBO*@
+                                    <div id="Campana" class="container">
+                                        <div class="row justify-content-md-center">
+                                            <div id="divTabla" class="col-md-auto table-responsive tabla-height">
+
+                                                <table class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                                    <thead class="bg-blue">
+                                                        <tr>
+                                                            <th class="d-none">id_campana</th>
+                                                            <th>Clave Campana</th>
+                                                            <th>Familia</th>
+                                                            <th>SKU</th>
+                                                            <th>Descripcion</th>
+                                                            <th>Tipo</th>
+                                                            <th>Grupo Combo</th>
+                                                            <th>Numero Padre</th>
+                                                            <th>Numero Hijo</th>
+                                                            <th>Alcance</th>
+                                                            <th>Capacidad</th>
+                                                            <th>Dinamica</th>
+                                                            <th>Venta Litros Año Anterior</th>
+                                                            <th>Presupuesto Litros Sin Campaña</th>
+                                                            <th>Presupuesto Litros Con Campaña</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                                        <tr ng-repeat="d in ListMecanicaMultiplo">
+                                                            <td class="d-none">{{d.IdCampana}}</td>
+                                                            <td>{{d.ClaveCampana}}</td>
+                                                            <td>{{d.Familia}}</td>
+                                                            <td>{{d.SKU}}</td>
+                                                            <td>{{d.Descripcion}}</td>
+                                                            <td>{{d.Tipo}}</td>
+                                                            <td>{{d.GrupoCombo}}</td>
+                                                            <td>{{d.NumeroPadre}}</td>
+                                                            <td>{{d.NumeroHijo}}</td>
+                                                            <td>{{d.Alcance}}</td>
+                                                            <td>{{d.Capacidad}}</td>
+                                                            <td>{{d.Dinamica}}</td>
+                                                            <td>{{d.VLitrosAnioAnt}}</td>
+                                                            <td>{{d.PLitrosSinCamp}}</td>
+                                                            <td>{{d.PLitrosConCamp}}</td>
+                                                        </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-tiendas" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                                    @*DETALLE PRODUCTOS MECANICA TIENDAS*@
+                                    <div id="Campana" class="container">
+                                        <div class="row justify-content-md-center">
+                                            <div id="divTabla" class="col-md-auto table-responsive tabla-height">
+
+                                                <table class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                                    <thead class="bg-blue">
+                                                        <tr>
+                                                            <th class="d-none">id_campana</th>
+                                                            <th>Clave Campana</th>
+                                                            <th>Id Tienda</th>
+                                                            <th>Bill To</th>
+                                                            <th>Customer Name</th>
+                                                            <th>Region</th>
+                                                            <th>Descripcion Region</th>
+                                                            <th>Descripcion Zona</th>
+                                                            <th>Segmento</th>
+                                                            <th>Clave Sobreprecio</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                                        <tr ng-repeat="d in ListMecanicaTiendas">
+                                                            <td class="d-none">{{d.IdCampania}}</td>
+                                                            <td>{{d.ClaveCampania}}</td>
+                                                            <td>{{d.Id_Tienda}}</td>
+                                                            <td>{{d.Bill_To}}</td>
+                                                            <td>{{d.Customer_Name}}</td>
+                                                            <td>{{d.Region}}</td>
+                                                            <td>{{d.Descripcion_Region}}</td>
+                                                            <td>{{d.Descripcion_Zona}}</td>
+                                                            <td>{{d.Segmento}}</td>
+                                                            <td>{{d.Clave_Sobrepecio}}</td>
+                                                        </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    @*Pie Modal*@
+                    <div class="modal-footer div-centrar">
+
+                        <div id="divSave" ng-class="cssDivSaveModalButton">
+                            <div class="form-group row">
+                                <div class="col-md-6 div-centrar">
+                                    <button id="cancelarModal" type="button" class="btn btn-primary" data-dismiss="modal" ng-click="">
+                                        <i class="fa fa-window-close fa-lg" aria-hidden="true"></i> Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        @*MODAL AGREGAR EDITAR USUARIO LDAP*@
+        <div class="modal fade" id="myModalAddUsuarioLdap" tabindex="-1" role="document" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    @*Encabezado Modal*@
+                    <div class="modal-header">
+                        <div class="navbar-header navbar-header-modal row">
+                            <img src="~/Images/PPG_Layout.png" class="col-sm-2 img-rounded img-modal-ppg" alt="Cinque Terre">
+                            <img src="~/Images/comex_layout_2.png" class="col-sm-4 img-rounded img-modal-comex" alt="Cinque Terre">
+                            <h5 id="modalTitle" class="col-sm-6 modal-title">Editar Usuario</h5>
+                        </div>
+
+                        <button type="button" class="close d-none" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    @*Cuerpo Modal*@
+                    <div class="modal-body modal-body-max">
+                        @*Formulario*@
+                        <form class="form-horizontal">
+                            <input type="hidden" id="id_indicador" />
+
+                            @*PPGID*@
+                            <div class="form-group input-group">
+                                <label class="control-label col-sm-2" for="ppgid">PPGID:</label>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    <input type="text" class="form-control text-uppercase" id="ppgid" name="ppgid" placeholder="PPGID"
+                                           ng-model="PPGIDLdap" required ng-readonly="ReadOnlyCampos">
+                                </div>
+                            </div>
+
+                            @*Correo*@
+                            <div class="form-group input-group">
+                                <label class="control-label col-sm-2" for="ppgid">Correo:</label>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    <input type="text" class="form-control text-lowercase" id="correo" name="correo" placeholder="Correo"
+                                           ng-model="CorreoLdap" required ng-readonly="ReadOnlyCampos">
+                                </div>
+                            </div>
+
+                            @*Usuario*@
+                            <div class="form-group input-group">
+                                <label class="control-label col-sm-2" for="ppgid">Nombre:</label>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    <input type="text" class="form-control text-uppercase" id="nombre" name="nombre" placeholder="Nombre" style="width:350px;max-width:450px;"
+                                           ng-model="NombreLdap" required ng-readonly="ReadOnlyCampos">
+                                </div>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" ng-disabled="ValidateSearchUsuarioLdap(PPGIDLdap, CorreoLdap, NombreLdap)"
+                                            ng-click="SearchUsuarioLdap(PPGIDLdap, CorreoLdap, NombreLdap)">
+                                        <i class="fa fa-search fa-lg" aria-hidden="true"></i>Buscar
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            @*Rol*@
+                            @*<div class="form-group input-group">
+                                <label class="control-label col-sm-2" for="rol">Rol:</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="input-group-append">
+                                    <select class="form-control" id="negocioLider" ng-model="RolCronogramaAdd" ng-options="data as data.Rol for data in ListRolCronograma | orderBy:'ID' track by data.ID" required>
+                                        <option value="">-- SELECCIONE --</option>
+                                    </select>
+                                </div>
+                            </div>*@
+
+
+                            @*TABLA USUARIOS*@
+                            <div id="divTabla" class="col-md-auto table-responsive tabla-height">
+                                <table class="table table-sm table-small-font table-bordered table-striped table-hover">
+                                    <thead class="bg-blue">
+                                        <tr>
+                                            <th>Seleccionar</th>
+                                            <th>PPGID</th>
+                                            <th>Correo</th>
+                                            <th>Usuario</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="noMostrarDiv" ng-class="mostrarDiv">
+                                        <tr ng-repeat="d in ListUsuarioLdapTemp">
+                                            <td style="text-align:center;vertical-align:middle;">
+                                                <input type="radio" class="radio-usuario" name="seleccionUsuarioLdap" ng-model="d.Seleccionar" ng-click="SeleccionarUsuarioLdap(d)" />
+                                            </td>
+                                            <td>{{d.PPGID}}</td>
+                                            <td>{{d.Email}}</td>
+                                            <td>{{d.Nombre}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </form>
+                    </div>
+
+                    @*Pie Modal*@
+                    <div class="modal-footer div-centrar">
+
+                        <div id="divEdit">
+                            <div class="form-group row">
+                                <div class="col-md-6 div-centrar">
+                                    <button ng-disabled="ValidateEditUsuarioLdap(SeleccionUsuarioLdap)" id="saveModal" type="button" class="btn btn-primary" data-dismiss="modal" ng-click="EditUsuarioLdap(UsuarioLdap, Cronograma, TipoUduarioLdap)">
+                                        <i class="fa fa-save fa-lg" aria-hidden="true"></i> Editar
+                                    </button>
+                                </div>
+                                <div class="col-md-6 div-centrar">
+                                    <button id="cancelarModal" type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="">
+                                        <i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i> Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+    </div>
+</body>

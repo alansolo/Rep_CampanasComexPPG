@@ -1,0 +1,187 @@
+﻿
+@{
+    ViewBag.Title = "Grafico";
+    Layout = "~/Views/Shared/_LayoutCampana.cshtml";
+}
+
+<h2></h2>
+
+<head>
+
+    <script src="~/Scripts/google-chart.js"></script>
+
+    <link href="~/Content/Grafico/Grafico.css" rel="stylesheet" />
+
+    <script src="~/Scripts/Grafico/Grafico.js"></script>
+</head>
+
+<body>
+    <div ng-app="MyApp" ng-controller="MyController">
+
+        @*Campañas por porcentaje*@
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCampaniaPorcentaje" aria-expanded="false" aria-controls="collapseCampaniaPorcentaje">
+                            <i class="fa collapsed-start"></i>
+                            Campañas por porcentaje
+                        </button>
+                        <i class="fa fa-chart-bar fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseCampaniaPorcentaje" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="">
+
+                        <div id="CampanaEstatus" class="container">
+                            <div class="row justify-content-md-center">
+                                <div id="divTabla" class="col-md-auto table-responsive">
+
+                                    <div id="barchart"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+
+        @*Campañas por alcance*@
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCampaniaAlcance" aria-expanded="false" aria-controls="collapseCampaniaAlcance">
+                            <i class="fa collapsed-start"></i>
+                            Campañas por alcance
+                        </button>
+                        <i class="fa fa-chart-pie fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseCampaniaAlcance" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+
+                        <div id="Campana" class="container">
+                            <div class="row justify-content-md-center">
+                                <div id="divTabla" class="col-md-auto table-responsive">
+
+                                    <div id="piechartAlcance" style="width: 900px; height: 400px;"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+
+        @*Campañas por estatus*@
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCampaniaEstatus" aria-expanded="false" aria-controls="collapseCampaniaEstatus">
+                            <i class="fa collapsed-start"></i>
+                            Campañas por estatus
+                        </button>
+                        <i class="fa fa-chart-pie fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseCampaniaEstatus" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+
+                        <div id="Campana" class="container">
+                            <div class="row justify-content-md-center">
+                                <div id="divTabla" class="col-md-auto table-responsive">
+
+                                    <div id="piechartEstatus" style="width: 900px; height: 400px;"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+
+        @*Campañas por ejecucion*@
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCampaniaEjecucion" aria-expanded="false" aria-controls="collapseCampaniaEjecucion">
+                            <i class="fa collapsed-start"></i>
+                            Campañas por ejecucion
+                        </button>
+                        <i class="fa fa-chart-pie fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseCampaniaEjecucion" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+
+                        <div id="Campana" class="container">
+                            <div class="row justify-content-md-center">
+                                <div id="divTabla" class="col-md-auto table-responsive">
+
+                                    <div id="piechartEjecucion" style="width: 900px; height: 400px;"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+
+        @*Campañas por progreso*@
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCampaniaProgreso" aria-expanded="false" aria-controls="collapseCampaniaProgreso">
+                            <i class="fa collapsed-start"></i>
+                            Campañas por progreso
+                        </button>
+                        <i class="fa fa-chart-pie fa-lg" style="color: #007bff;"></i>
+                    </h5>
+                </div>
+
+                <div id="collapseCampaniaProgreso" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+
+                        <div id="Campana" class="container">
+                            <div class="row justify-content-md-center">
+                                <div id="divTabla" class="col-md-auto table-responsive">
+
+                                    <div id="piechartProgreso" style="width: 900px; height: 400px;"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+
+    </div>
+</body>
